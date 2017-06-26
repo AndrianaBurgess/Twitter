@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.twitter;
 
 import android.os.Bundle;
 import android.view.Menu;
