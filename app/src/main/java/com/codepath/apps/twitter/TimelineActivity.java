@@ -2,6 +2,7 @@ package com.codepath.apps.twitter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,13 +28,29 @@ public class TimelineActivity extends AppCompatActivity {
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
-
+    private SwipeRefreshLayout swipeContainer;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                //fetchTimelineAsync(0);
+
+                populateTimeline();
+
+            }
+        });
+        // Configure the refreshing colors
 
         client = TwitterApplication.getRestClient();
 
@@ -52,6 +69,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void populateTimeline(){
+
         client.getHomeTimeline(new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -63,6 +81,8 @@ public class TimelineActivity extends AppCompatActivity {
                 //Log.d("TwitterClient", response.toString());
                 //iterate json array
                 //for each entry , deserialize the json object
+                tweetAdapter.clear();
+                swipeContainer.setRefreshing(false);
                 for(int i = 0 ; i<response.length(); i++) {
                     //convert each object to a tweet model
                     //add that tweet model to our data source
@@ -71,6 +91,7 @@ public class TimelineActivity extends AppCompatActivity {
                         Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
                         tweets.add(tweet);
                         tweetAdapter.notifyItemInserted(tweets.size() - 1);
+
                     } catch (JSONException e){
                         e.printStackTrace();
                     }
@@ -80,18 +101,22 @@ public class TimelineActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                swipeContainer.setRefreshing(false);
                 Log.d("TwitterClient", responseString);
                 throwable.printStackTrace();
+
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                swipeContainer.setRefreshing(false);
                 Log.d("TwitterClient", errorResponse.toString());
                 throwable.printStackTrace();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                swipeContainer.setRefreshing(false);
                 Log.d("TwitterClient", errorResponse.toString());
                 throwable.printStackTrace();
             }
@@ -123,4 +148,27 @@ public class TimelineActivity extends AppCompatActivity {
             rvTweets.scrollToPosition(0);
         }
     }
+
+//    public void fetchTimelineAsync(int page) {
+//        // Send the network request to fetch the updated data
+//        // `client` here is an instance of Android Async HTTP
+//        // getHomeTimeline is an example endpoint.
+//
+//        client.getHomeTimeline(0, new JsonHttpResponseHandler() {
+//            public void onSuccess(JSONArray json) {
+//                // Remember to CLEAR OUT old items before appending in the new ones
+//                //adapter.clear();
+//                // ...the data has come back, add new items to your adapter...
+//                //adapter.addAll(...);
+//                // Now we call setRefreshing(false) to signal refresh has finished
+//                swipeContainer.setRefreshing(false);
+//            }
+//
+//            public void onFailure(Throwable e) {
+//                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
+//            }
+//        });
+
+
+
 }
