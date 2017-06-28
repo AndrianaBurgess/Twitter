@@ -2,11 +2,13 @@ package com.codepath.apps.twitter.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by aburgess11 on 6/26/17.
  */
 
+@Parcel
 public class User {
 
     public String name;
@@ -24,5 +26,9 @@ public class User {
         user.profileImageUrl = json.getString("profile_image_url");
 
         return user;
+    }
+
+    public User(){
+
     }
 }

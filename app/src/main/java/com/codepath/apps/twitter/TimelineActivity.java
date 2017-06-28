@@ -15,6 +15,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class TimelineActivity extends AppCompatActivity {
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
+
 
 
     @Override
@@ -105,6 +107,20 @@ public class TimelineActivity extends AppCompatActivity {
     public void onComposeAction(MenuItem mi) {
         // handle click here
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-        startActivity(i);
+        i.putExtra("sum", 9);
+        startActivityForResult(i, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        // check request code and result code first
+        if(resultCode == RESULT_OK && requestCode == 9) {
+            // Use data parameter
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+            tweets.add(0, tweet);
+            tweetAdapter.notifyItemInserted(0);
+            rvTweets.scrollToPosition(0);
+        }
     }
 }
