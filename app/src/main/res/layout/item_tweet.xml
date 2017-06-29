@@ -30,7 +30,8 @@
         android:text="TextView"
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@+id/tvUserName"
-        android:layout_alignBottom="@+id/ivProfileImage" />
+        android:layout_alignBottom="@+id/ivProfileImage"
+        />
 
     <TextView
         android:id="@+id/tvTime"
@@ -39,4 +40,15 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:text="TextView" />
+
+    <ImageButton
+        android:id="@+id/btRT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivProfileImage"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:onClick="onRetweet"
+        android:radius="50dp"
+        app:srcCompat="@drawable/ic_vector_retweet_stroke" />
 </RelativeLayout>

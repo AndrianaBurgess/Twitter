@@ -6,6 +6,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -73,6 +74,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         public TextView tvUsername;
         public TextView tvBody;
         public TextView tvTime;
+        public ImageButton btRT;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -82,6 +84,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvUsername = (TextView) itemView.findViewById(R.id.tvUserName);
             tvTime = (TextView) itemView.findViewById(R.id.tvTime);
+            btRT = (ImageButton) itemView.findViewById(R.id.btRT);
         }
     }
 

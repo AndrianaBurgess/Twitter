@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.codepath.apps.twitter.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -29,6 +30,8 @@ public class TimelineActivity extends AppCompatActivity {
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
     private SwipeRefreshLayout swipeContainer;
+    private EndlessRecyclerViewScrollListener scrollListener;
+    LinearLayoutManager linearLayoutManager;
 
 
     @Override
@@ -50,11 +53,9 @@ public class TimelineActivity extends AppCompatActivity {
 
             }
         });
-        // Configure the refreshing colors
+
 
         client = TwitterApplication.getRestClient();
-
-
         //find the recycler view
         //init the arratlist - data source
         //construct the adapter form this datasource
@@ -66,6 +67,8 @@ public class TimelineActivity extends AppCompatActivity {
         //set the adapter
         rvTweets.setAdapter(tweetAdapter);
         populateTimeline();
+
+
     }
 
     private void populateTimeline(){
@@ -133,6 +136,11 @@ public class TimelineActivity extends AppCompatActivity {
         // handle click here
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
         i.putExtra("sum", 9);
+        startActivityForResult(i, 0);
+    }
+
+    public void onRetweet(View view){
+        Intent i = new Intent(this, ComposeActivity.class);
         startActivityForResult(i, 0);
     }
 
