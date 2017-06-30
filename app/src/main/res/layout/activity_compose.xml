@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:radius="50dp"
         android:onClick="onSubmit"
-        android:backgroundTint="@android:color/holo_blue_light"
+        android:backgroundTint="@android:color/holo_purple"
         android:text="Tweet"
         android:layout_below="@+id/textInputLayout"
         android:layout_alignParentEnd="true" />

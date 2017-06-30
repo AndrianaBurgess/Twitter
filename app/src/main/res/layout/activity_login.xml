@@ -15,7 +15,7 @@
         android:layout_margin="20dp"
         android:onClick="loginToRest"
         android:text="@string/login_label"
-        android:backgroundTint="@android:color/holo_blue_light"
+        android:backgroundTint="@android:color/holo_purple"
         android:radius="50dp"/>
 
 </RelativeLayout>

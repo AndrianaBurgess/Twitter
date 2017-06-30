@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.codepath.apps.twitter.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -57,7 +56,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApplication.getRestClient();
         //find the recycler view
-        //init the arratlist - data source
+        //init the arraylist - data source
         //construct the adapter form this datasource
         rvTweets = (RecyclerView) findViewById(R.id.rvTweet);
         tweets = new ArrayList<>();
@@ -139,10 +138,6 @@ public class TimelineActivity extends AppCompatActivity {
         startActivityForResult(i, 0);
     }
 
-    public void onRetweet(View view){
-        Intent i = new Intent(this, ComposeActivity.class);
-        startActivityForResult(i, 0);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

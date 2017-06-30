@@ -24,6 +24,7 @@ public class ComposeActivity extends AppCompatActivity {
     TwitterClient client;
     EditText etBody;
     Context context;
+    String nameR ="" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,12 @@ public class ComposeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_compose);
         client = new TwitterClient(this);
         context = this;
+        etBody = (EditText) findViewById(R.id.etTweet);
+        if(getIntent().getStringExtra("name") != null) {
+            nameR = getIntent().getStringExtra("name");
+            etBody.setText("@" + nameR);
+        }
+
     }
 
     public void onSubmit(View v) {
@@ -45,13 +52,10 @@ public class ComposeActivity extends AppCompatActivity {
                     Intent i = new Intent();
                     i.putExtra("tweet", Parcels.wrap(tweet));
                     setResult(RESULT_OK,i);
-                    // brings up the second activity
-                    //startActivity(i);
                     finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
             }
 

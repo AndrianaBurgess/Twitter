@@ -1,6 +1,7 @@
 package com.codepath.apps.twitter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -50,14 +51,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         //get the data according to position
         Tweet tweet = mTweets.get(position);
-        //populate the views accoring to this data
+        //populate the views according to this data
         holder.tvUsername.setText(tweet.user.name);
+        holder.tvScreenName.setText(tweet.user.screenName);
         holder.tvBody.setText(tweet.body);
         holder.tvTime.setText(getRelativeTimeAgo(tweet.createdAt));
         Glide.with(context)
                 .load(tweet.user.profileImageUrl)
                 .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
                 .into(holder.ivProfileImage);
+
 
     }
 
@@ -68,23 +71,42 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
     //for  each row , inflate the layout and pass into viewholder
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageView ivProfileImage;
         public TextView tvUsername;
         public TextView tvBody;
         public TextView tvTime;
         public ImageButton btRT;
+        public TextView tvScreenName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
-
             ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvUsername = (TextView) itemView.findViewById(R.id.tvUserName);
             tvTime = (TextView) itemView.findViewById(R.id.tvTime);
+            tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
             btRT = (ImageButton) itemView.findViewById(R.id.btRT);
+            btRT.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onReply(v);
+                }
+            });
+        }
+
+        public void onReply(View view){
+            //populate the views according to this data
+            String usrname = tvScreenName.getText().toString();
+            Intent i = new Intent(context, ComposeActivity.class);
+            i.putExtra("name",usrname);
+            context.startActivity(i);
+        }
+
+        @Override
+        public void onClick(View view) {
+
         }
     }
 
