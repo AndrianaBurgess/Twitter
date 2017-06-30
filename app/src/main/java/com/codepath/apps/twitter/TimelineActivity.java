@@ -38,6 +38,19 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         // Lookup the swipe container view
+        client = TwitterApplication.getRestClient();
+        //find the recycler view
+        //init the arraylist - data source
+        //construct the adapter form this datasource
+        rvTweets = (RecyclerView) findViewById(R.id.rvTweet);
+        tweets = new ArrayList<>();
+        tweetAdapter = new TweetAdapter(tweets);
+        //RecyclerView setup(layout manager, use adapter
+        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        //set the adapter
+        rvTweets.setAdapter(tweetAdapter);
+        populateTimeline();
+
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -54,18 +67,8 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
 
-        client = TwitterApplication.getRestClient();
-        //find the recycler view
-        //init the arraylist - data source
-        //construct the adapter form this datasource
-        rvTweets = (RecyclerView) findViewById(R.id.rvTweet);
-        tweets = new ArrayList<>();
-        tweetAdapter = new TweetAdapter(tweets);
-        //RecyclerView setup(layout manager, use adapter
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
-        //set the adapter
-        rvTweets.setAdapter(tweetAdapter);
-        populateTimeline();
+
+
 
 
     }
@@ -149,7 +152,12 @@ public class TimelineActivity extends AppCompatActivity {
             tweets.add(0, tweet);
             tweetAdapter.notifyItemInserted(0);
             rvTweets.scrollToPosition(0);
+
         }
+        
+
+
+
     }
 
 //    public void fetchTimelineAsync(int page) {
