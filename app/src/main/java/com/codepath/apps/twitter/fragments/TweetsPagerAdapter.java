@@ -3,13 +3,14 @@ package com.codepath.apps.twitter.fragments;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+
+import com.codepath.apps.twitter.SmartFragmentStatePagerAdapter;
 
 /**
  * Created by aburgess11 on 7/3/17.
  */
 
-public class TweetsPagerAdapter extends FragmentPagerAdapter {
+public class TweetsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
     private String tabTitles[] = new String[] {"Home", "Mentions"};
     private Context context;
@@ -41,4 +42,7 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return 2;
     }
+
+
 }
+

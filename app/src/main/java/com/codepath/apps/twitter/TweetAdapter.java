@@ -109,6 +109,12 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
                     }
                 }
             });
+            ivProfileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onProfileTweetView(v);
+                }
+            });
         }
 
         public void onReply(View view){
@@ -123,6 +129,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         public void onClick(View view) {
 
         }
+
+        public void onProfileTweetView(View view) {
+            //launch the profile view
+            Intent i = new Intent(context, ProfileActivity.class);
+            i.putExtra("screen_name", tvScreenName.getText().toString());
+            context.startActivity(i);
+        }
+
     }
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");

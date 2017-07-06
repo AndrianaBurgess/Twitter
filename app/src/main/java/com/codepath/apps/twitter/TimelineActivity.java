@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.codepath.apps.twitter.fragments.HomeTimelineFragment;
 import com.codepath.apps.twitter.fragments.TweetsListFragment;
 import com.codepath.apps.twitter.fragments.TweetsPagerAdapter;
 import com.codepath.apps.twitter.models.Tweet;
@@ -17,6 +18,8 @@ import org.parceler.Parcels;
 
 public class TimelineActivity extends AppCompatActivity implements TweetsListFragment.TweetSelectedListener{
 
+    TweetsPagerAdapter adapterViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,8 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
 
         ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
         vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager(), this));
+        adapterViewPager = new TweetsPagerAdapter(getSupportFragmentManager(), this);
+        vpPager.setAdapter(adapterViewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
 
@@ -54,7 +59,13 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
             //tweetAdapter.notifyItemInserted(0);
             //rvTweets.scrollToPosition(0);
 
+            HomeTimelineFragment fragmentHomeTweets =
+                    (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
+            fragmentHomeTweets.appendTweet(tweet);
+
         }
+
+
     }
 
     public void onProfileView(MenuItem item) {
@@ -62,6 +73,8 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         Intent i = new Intent(this, ProfileActivity.class);
         startActivity(i);
     }
+
+
 
     @Override
     public void onTweetSelected(Tweet tweet) {

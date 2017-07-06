@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.TwitterClient;
+import com.codepath.apps.twitter.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -46,6 +47,14 @@ public class HomeTimelineFragment extends TweetsListFragment {
 //
 //            }
 //        });
+    }
+
+    public void appendTweet(Tweet tweet) {
+        tweets.add(0, tweet);
+
+        // inserted at position 0
+        tweetAdapter.notifyItemInserted(0);
+        rvTweets.scrollToPosition(0);
     }
 
     private void populateTimeline(){

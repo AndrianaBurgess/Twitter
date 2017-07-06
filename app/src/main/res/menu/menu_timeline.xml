@@ -8,4 +8,29 @@
         android:onClick="onProfileView"
         android:title="Item"
         app:showAsAction="ifRoom" />
+
+
+
+
+
+    <!-- Menu file for `activity_movies.xml` is located in a file
+         such as `res/menu/menu_movies.xml`  -->
+
+        <item
+            android:id="@+id/miCompose"
+            android:icon="@drawable/ic_action_name"
+            app:showAsAction="ifRoom"
+            android:onClick="onComposeAction"
+            android:title="Compose">
+        </item>
+
+        <item
+            android:id="@+id/miActionProgress"
+            android:title="Loading..."
+            android:visible="false"
+            android:orderInCategory="100"
+            app:showAsAction="always"
+            app:actionLayout="@layout/action_view_progress" />
+
+
 </menu>
