@@ -31,10 +31,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     private List<Tweet> mTweets;
     //pass in tweets array
     Context context;
+    private TweetAdapterListener mListener;
 
-    public TweetAdapter(List<Tweet> tweets){
+    public interface TweetAdapterListener{
+
+        public void onItemSelected(View view, int position);
+    }
+
+    public TweetAdapter(List<Tweet> tweets, TweetAdapterListener listener){
         mTweets = tweets;
-
+        mListener = listener;
     }
 
     @Override
@@ -92,6 +98,15 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     onReply(v);
+                }
+            });
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    if(mListener != null){
+                        int position = getAdapterPosition();
+                        mListener.onItemSelected(view,position);
+                    }
                 }
             });
         }
