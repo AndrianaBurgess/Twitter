@@ -68,7 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView tvTagline = (TextView) findViewById(R.id.tvTagLine);
         TextView tvFollowing = (TextView) findViewById(R.id.tvFollowing);
         TextView tvFollowers = (TextView) findViewById(R.id.tvFollowers);
-        ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+        ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfile);
         tvName.setText(user.name);
         tvTagline.setText(user.tagLine);
         tvFollowers.setText(user.followersCount + " Followers");

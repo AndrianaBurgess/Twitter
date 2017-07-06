@@ -88,7 +88,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
+            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfile);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvUsername = (TextView) itemView.findViewById(R.id.tvUserName);
             tvTime = (TextView) itemView.findViewById(R.id.tvTime);
@@ -115,6 +115,12 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
                     onProfileTweetView(v);
                 }
             });
+            ivProfileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onTweetView(v);
+                }
+            });
         }
 
         public void onReply(View view){
@@ -137,6 +143,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             context.startActivity(i);
         }
 
+        public void onTweetView(View view) {
+            //launch the profile view
+            Intent i = new Intent(context, TweetDetailsActivity.class);
+            i.putExtra("screen_name", tvScreenName.getText().toString());
+            i.putExtra("body_name", tvBody.getText().toString());
+            i.putExtra("user_name", tvUsername.getText().toString());
+            context.startActivity(i);
+        }
     }
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");

@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.codepath.apps.twitter.fragments.HomeTimelineFragment;
 import com.codepath.apps.twitter.fragments.TweetsListFragment;
@@ -75,9 +74,14 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     }
 
 
-
+//
     @Override
     public void onTweetSelected(Tweet tweet) {
-        Toast.makeText(this, tweet.body, Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, TweetDetailsActivity.class);
+        i.putExtra("screen_name", tweet.user.screenName);
+        i.putExtra("body", tweet.body);
+        i.putExtra("user_name", tweet.user.name);
+        i.putExtra("pic", tweet.user.profileImageUrl);
+        startActivity(i);
     }
 }
