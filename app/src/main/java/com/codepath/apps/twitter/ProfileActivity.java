@@ -25,14 +25,14 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        String screenName = getIntent().getStringExtra("screen_name");
-        UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenName);
+        String screenName1 = getIntent().getStringExtra("screen_name");
+        UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenName1);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.flContainer, userTimelineFragment);
         ft.commit();
 
         client = TwitterApplication.getRestClient();
-        if (screenName == null ) {
+        if (screenName1 == null ) {
             client.getUserInfo(new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             });
         }else{
-            client.getUserInfo(screenName ,new JsonHttpResponseHandler() {
+            client.getUserInfo(screenName1 ,new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     try {
@@ -75,6 +75,20 @@ public class ProfileActivity extends AppCompatActivity {
         tvFollowing.setText(user.followingCount + " Following");
         Glide.with(this).load(user.profileImageUrl).into(ivProfileImage);
     }
+
+
+//    public void populateUserHeadline(User user){
+//        TextView tvName = (TextView) findViewById(R.id.tvName);
+//        TextView tvTagline = (TextView) findViewById(R.id.tvTagLine);
+//        TextView tvFollowing = (TextView) findViewById(R.id.tvFollowing);
+//        TextView tvFollowers = (TextView) findViewById(R.id.tvFollowers);
+//        ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfile);
+//        tvName.setText(user.name);
+//        tvTagline.setText(user.tagLine);
+//        tvFollowers.setText(user.followersCount + " Followers");
+//        tvFollowing.setText(user.followingCount + " Following");
+//        Glide.with(this).load(user.profileImageUrl).into(ivProfileImage);
+//    }
 
 
 }

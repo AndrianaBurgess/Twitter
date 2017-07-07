@@ -115,12 +115,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
                     onProfileTweetView(v);
                 }
             });
-            ivProfileImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onTweetView(v);
-                }
-            });
+
         }
 
         public void onReply(View view){
