@@ -57,12 +57,13 @@ public class HomeTimelineFragment extends TweetsListFragment {
         rvTweets.scrollToPosition(0);
     }
 
-    private void populateTimeline(){
+
+    public void populateTimeline(){
 
         client.getHomeTimeline(new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                swipeContainer.setRefreshing(false);
+                //swipeContainer.setRefreshing(false);
                 Log.d("TwitterClient", response.toString());
             }
 
@@ -71,14 +72,16 @@ public class HomeTimelineFragment extends TweetsListFragment {
                 //Log.d("TwitterClient", response.toString());
                 //iterate json array
                 //for each entry , deserialize the json object
+                //swipeContainer.setRefreshing(false);
                addItems(response);
+
 
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                swipeContainer.setRefreshing(false);
+                //swipeContainer.setRefreshing(false);
                 Log.d("TwitterClient", responseString);
                 throwable.printStackTrace();
 
@@ -86,14 +89,14 @@ public class HomeTimelineFragment extends TweetsListFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                swipeContainer.setRefreshing(false);
+                //swipeContainer.setRefreshing(false);
                 Log.d("TwitterClient", errorResponse.toString());
                 throwable.printStackTrace();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                swipeContainer.setRefreshing(false);
+               // swipeContainer.setRefreshing(false);
                 Log.d("TwitterClient", errorResponse.toString());
                 throwable.printStackTrace();
             }

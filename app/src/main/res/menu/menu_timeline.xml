@@ -9,10 +9,6 @@
         android:title="Item"
         app:showAsAction="ifRoom" />
 
-
-
-
-
     <!-- Menu file for `activity_movies.xml` is located in a file
          such as `res/menu/menu_movies.xml`  -->
 

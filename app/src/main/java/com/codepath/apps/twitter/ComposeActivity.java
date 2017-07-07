@@ -3,10 +3,14 @@ package com.codepath.apps.twitter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codepath.apps.twitter.models.Tweet;
@@ -40,9 +44,38 @@ public class ComposeActivity extends AppCompatActivity {
 
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_compose, menu);
+        return true;
+    }
+
+    MenuItem miActionProgressItem;
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+        // Extract the action-view from the menu item
+        ProgressBar v =  (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
+        // Return to finish
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
+    }
+
     public void onSubmit(View v) {
         // closes the activity and returns to first screen
         etBody = (EditText) findViewById(R.id.etTweet);
+        showProgressBar();
         client.onTweet(etBody.getText().toString() , new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -52,6 +85,7 @@ public class ComposeActivity extends AppCompatActivity {
                     Intent i = new Intent();
                     i.putExtra("tweet", Parcels.wrap(tweet));
                     setResult(RESULT_OK,i);
+                    hideProgressBar();
                     finish();
                 } catch (JSONException e) {
                     e.printStackTrace();

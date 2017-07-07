@@ -16,7 +16,6 @@ import com.codepath.apps.twitter.models.Tweet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -171,9 +170,5 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         notifyDataSetChanged();
     }
 
-    // Add a list of items -- change to type used
-    public void addAll(ArrayList<Tweet> list) {
-        list.addAll(list);
-        notifyDataSetChanged();
-    }
+
 }

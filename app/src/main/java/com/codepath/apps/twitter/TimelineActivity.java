@@ -33,6 +33,7 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
 
     }
 
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_timeline, menu);
@@ -42,7 +43,6 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     public void onComposeAction(MenuItem mi) {
         // handle click here
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-        i.putExtra("sum", 9);
         startActivityForResult(i, 0);
     }
 
@@ -51,15 +51,14 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         // check request code and result code first
-        if(resultCode == RESULT_OK && requestCode == 9) {
+        if(resultCode == RESULT_OK && requestCode == 0) {
             // Use data parameter
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             //tweets.add(0, tweet);
             //tweetAdapter.notifyItemInserted(0);
             //rvTweets.scrollToPosition(0);
 
-            HomeTimelineFragment fragmentHomeTweets =
-                    (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
+            HomeTimelineFragment fragmentHomeTweets = (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
             fragmentHomeTweets.appendTweet(tweet);
 
         }
